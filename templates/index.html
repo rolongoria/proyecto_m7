@@ -122,9 +122,9 @@
     <script>
         async function makePrediction() {
 
-            // console.log('llamada a funcion')
             
-            const url = 'http://127.0.0.1:5000/predict';
+            // const url = 'http://127.0.0.1:5000/predict';
+            const url = 'http://rolongoria.pythonanywhere.com/predict';
 
 
             const formData = {
@@ -141,18 +141,6 @@
 
             console.log(formData)
 
-            // const formData = {
-            //     Age: 34,
-            //     C: 0,
-            //     Fare: 71.23,
-            //     Parch: 2,
-            //     Pclass: 3,
-            //     Q: 0,
-            //     S: 1,
-            //     SibSp: 3,
-            //     female: 1,
-            //     male: 0,
-            // };
 
             try {
                 const response = await fetch(url, {
