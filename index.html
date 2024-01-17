@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppRateForecast</title>
+
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="container">
+
+    <h1 class="mt-4">AppRateForecast</h1>
+
+    <p class="lead">AppRateForecast is your go-to app for predicting the potential rating of mobile applications. 
+        Whether you're a developer seeking insights for app improvement or a user curious about the likely rating of an app, 
+        AppRateForecast has you covered. Input essential parameters such as Category, Reviews, Size, Installs, Type, Price, Content Rating, Updated Month, and Updated Year, 
+        and let AppRateForecast analyze the data to provide accurate rating forecasts. 
+        Stay ahead in the dynamic world of mobile apps with AppRateForecast – where ratings meet prediction!</p>
+
+    <form id="predictionForm" class="mt-4">
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" class="form-control">
+                <option value="0">ART_AND_DESIGN</option>
+                <option value="1">AUTO_AND_VEHICLES</option>
+                <option value="2">BEAUTY</option>
+                <option value="3">BOOKS_AND_REFERENCE</option>
+                <option value="4">BUSINESS</option>
+                <option value="5">COMICS</option>
+                <option value="6">COMMUNICATION</option>
+                <option value="7">DATING</option>
+                <option value="8">EDUCATION</option>
+                <option value="9">ENTERTAINMENT</option>
+                <option value="10">EVENTS</option>
+                <option value="11">FAMILY</option>
+                <option value="12">FINANCE</option>
+                <option value="13">FOOD_AND_DRINK</option>
+                <option value="14">GAME</option>
+                <option value="15">HEALTH_AND_FITNESS</option>
+                <option value="16">HOUSE_AND_HOME</option>
+                <option value="17">LIBRARIES_AND_DEMO</option>
+                <option value="18">LIFESTYLE</option>
+                <option value="19">MAPS_AND_NAVIGATION</option>
+                <option value="20">MEDICAL</option>
+                <option value="21">NEWS_AND_MAGAZINES</option>
+                <option value="22">PARENTING</option>
+                <option value="23">PERSONALIZATION</option>
+                <option value="24">PHOTOGRAPHY</option>
+                <option value="25">PRODUCTIVITY</option>
+                <option value="26">SHOPPING</option>
+                <option value="27">SOCIAL</option>
+                <option value="28">SPORTS</option>
+                <option value="29">TOOLS</option>
+                <option value="30">TRAVEL_AND_LOCAL</option>
+                <option value="31">VIDEO_PLAYERS</option>
+                <option value="32">WEATHER</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="reviews">Reviews:</label>
+            <input type="number" id="reviews" name="Reviews" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <input type="number" id="size" name="Size" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="installs">Installs:</label>
+            <input type="number" id="installs" name="Installs" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <select id="type" class="form-control">
+                <option value=0>Free</option>
+                <option value=1>Paid</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="Price" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="content">Content Rating:</label>
+            <select id="content" class="form-control">
+                <option value="0">Adults only 18+</option>
+                <option value="1">Everyone</option>
+                <option value="2">Everyone 10+</option>
+                <option value="3">Mature 17+</option>
+                <option value="4">Teen</option>
+                <option value="5">Unrated</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="month">Updated Month:</label>
+            <input type="number" id="month" name="Updated Month" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Updated Year:</label>
+            <input type="number" id="year" name="Updated Year" class="form-control" required>
+        </div>
+
+        <button type="button" onclick="makePrediction()" class="btn btn-primary">Submit</button>
+
+        <div id="result" class="mt-3" style="font-size: 18px;"></div>
+
+    </form>
+
+    <!-- Bootstrap JS and Popper.js (required for Bootstrap JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        async function makePrediction() {
+
+            // console.log('llamada a funcion')
+            
+            const url = 'http://127.0.0.1:5000/predict';
+
+
+            const formData = {
+                'Category': parseFloat(document.getElementById('category').value) || 0,
+                'Reviews': parseFloat(document.getElementById('reviews').value) || 0,
+                'Size': parseFloat(document.getElementById('size').value) || 0,
+                'Installs': parseFloat(document.getElementById('installs').value) || 0,
+                'Type': parseFloat(document.getElementById('type').value) || 0,
+                'Price': parseFloat(document.getElementById('price').value) || 0,
+                'Content Rating': parseFloat(document.getElementById('content').value) || 0,
+                'Updated Month': parseFloat(document.getElementById('month').value) || 0,
+                'Updated Year': parseFloat(document.getElementById('year').value) || 0, 
+            };
+
+            console.log(formData)
+
+            // const formData = {
+            //     Age: 34,
+            //     C: 0,
+            //     Fare: 71.23,
+            //     Parch: 2,
+            //     Pclass: 3,
+            //     Q: 0,
+            //     S: 1,
+            //     SibSp: 3,
+            //     female: 1,
+            //     male: 0,
+            // };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log(result.prediction);
+                const roundedPrediction = parseFloat(result.prediction).toFixed(1);
+                document.getElementById('result').textContent = 'The Predicted Rating is: ' + roundedPrediction;
+
+                } catch (error) {
+                        console.error('Error:', error);
+                }  
+        }
+    </script>
+
+</body>
+</html>
